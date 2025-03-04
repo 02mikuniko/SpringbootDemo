@@ -1,54 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<!-- 项目根标签，定义Maven规范版本和XML Schema验证 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 基础配置模块 START -->
+    <modelVersion>4.0.0</modelVersion>  <!-- Maven模型版本（固定值） -->
+
+    <!-- 继承Spring Boot官方父项目，简化依赖版本管理 -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>3.4.3</version>  <!-- Spring Boot版本 -->
+        <relativePath/>  <!-- 优先从本地仓库查找，找不到再从远程下载 -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>SpringbootDemo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>SpringbootDemo</name>
-    <description>SpringbootDemo</description>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
+
+    <!-- 项目坐标（唯一标识） -->
+    <groupId>com.example</groupId>  <!-- 组织/公司域名倒写 -->
+    <artifactId>SpringbootDemo</artifactId>  <!-- 项目名称 -->
+    <version>0.0.1-SNAPSHOT</version>  <!-- 版本号（SNAPSHOT表示开发版） -->
+    <url/>  <!-- 项目主页URL（暂为空） -->
+    <!-- 基础配置模块 END -->
+
+    <!-- 自定义属性配置 -->
     <properties>
+        <!-- JDK版本 -->
         <java.version>17</java.version>
+        <!-- 源码编码格式 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- 依赖版本管理 -->
+        <mysql.driver.version>8.0.33</mysql.driver.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
     </properties>
+
+    <!-- 依赖管理模块 -->
     <dependencies>
+        <!-- Spring Boot基础依赖（包含自动配置核心） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <!-- 版本继承自parent，无需指定 -->
         </dependency>
 
+        <!-- MyBatis-Plus增强工具 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+
+        <!-- MySQL数据库驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.driver.version}</version>
+            <scope>runtime</scope>  <!-- 仅在运行时生效 -->
+        </dependency>
+
+        <!-- 测试相关依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <scope>test</scope>  <!-- 仅在测试时生效 -->
         </dependency>
     </dependencies>
 
+    <!-- 构建配置模块 -->
     <build>
+
+        <!-- 插件配置模块 -->
         <plugins>
+
+            <!-- Spring Boot打包插件（可生成可执行jar） -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-        </plugins>
-    </build>
 
+        </plugins>
+
+    </build>
 </project>
